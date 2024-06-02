@@ -56,13 +56,23 @@ ESP32's also generally have dual cores. In a standard, simple microcontroller, t
 
 * ESP32 sometimes refers to the CAN protocol as TWAI (Two-wire automotive interface), but they are essentially the same thing.
 
-## Aviation Plug Wiring for CAN-Bus
+## Our Setup
+
+### CAN-Bus Wiring
+
+* We use [24 AWG Black/White Stranded Twisted Pair Hook-Up Wire](https://www.jameco.com/z/224BW-C-R-Jameco-ValuePro-24-AWG-Black-White-Stranded-Twisted-Pair-Hook-Up-Wire-100-Feet_173164.html) for our CAN-Bus wiring
+* Twisted pair wire is the standard for CAN-Bus systems because it ensures that any electrical noise affects both wires uniformly.
+
+### Aviation Plug Wiring for CAN-Bus
+
+* We use aviation plug connectors to connect subsystems to our main power/CAN busses.
+* Our wiring system for the connectors themselves is as follows:
 
 * +12V on PIN 1
 * GND on PIN 2
 * CAN-H on PIN 3
 * CAN-L on PIN 4
 
-## CAN-Bus Message ID List
+### CAN-Bus Message ID List
 
 * In this repository is a CAN-Bus Message ID List that describes each CAN-Bus message that may need to be sent, the subsystem microcontroller it is coming from, and the priority number 

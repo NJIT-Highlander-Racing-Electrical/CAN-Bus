@@ -17,7 +17,7 @@ In a more technical aspect, CAN implements a differential-pair signal. The two w
 
 CAN is also different from communication protocols like SPI (Serial Peripheral Interface) in the sense that there is no "master" device. All devices along the CAN network are known as Nodes. Nodes can be added and removed with no issues, and each node in the network is capable of sending and receiving messages to and from every other node.
 
-Read more about CAN-Bus here: https://www.autopi.io/blog/can-bus-explained/
+[Read more about CAN-Bus here](https://www.autopi.io/blog/can-bus-explained/)
 
 ## Why do we use it for Baja?
 
@@ -36,21 +36,21 @@ There are two main benefits to using ESP32 Microcontrollers for implementing CAN
 
 A CAN Node is made up of a controller and transceiver. The controller is responsible for processing the data that is being sent and received by a microcontroller on the CAN bus. The transceiver is the interface between the controller and CAN Bus. The transceiver translates the logic level messages from the controller into the CAN differntial signals on the CAN-H and CAN-L pins.
 
-Unlike standard Arduinos, the ESP32 has a built in CAN Controller. This means that to create a CAN Node, we only need the transceiver. The [transceivers we use]([[url](https://www.adafruit.com/product/5708)]) are from Adafruit and are far more compact than a CAN controller/transceiver combo like the [MCP2515]([[url](https://www.amazon.com/HiLetgo-MCP2515-TJA1050-Receiver-Arduino/dp/B01D0WSEWU)]) you may have seen online that are controlled via SPI
+Unlike standard Arduinos, the ESP32 has a built in CAN Controller. This means that to create a CAN Node, we only need the transceiver. The [transceivers we use](https://www.adafruit.com/product/5708) are from Adafruit and are far more compact than a CAN controller/transceiver combo like the [MCP2515](https://www.amazon.com/HiLetgo-MCP2515-TJA1050-Receiver-Arduino/dp/B01D0WSEWU) you may have seen online that are controlled via SPI
 
-Read more about the ESP32's built in CAN Controller here: https://docs.espressif.com/projects/esp-idf/en/release-v3.3/api-reference/peripherals/can.html
+[Read more about the ESP32's built in CAN Controller here](https://docs.espressif.com/projects/esp-idf/en/release-v3.3/api-reference/peripherals/can.html)
 
 ### Dual-Core Functionality
 
 ESP32's also generally have dual cores. In a standard, simple microcontroller, the program loops sequentially and indefinitely. If it is doing something like reading a sensor or updating an LCD, that is all it can do at that moment. However, dual cores allow two operations to be done at once. This is invaluable for CAN-Bus as it simplifies the programs greatly. One core of each microcontroller can be dedicated to scanning the CAN-Bus, sending and receiving data and updating variables as needed. The other core can be doing the meat of the program, whether it is reading a wheel speed sensor, temperature, pedal position, or something else.
 
-* Read more about dual core functionality on ESP32's here: https://randomnerdtutorials.com/esp32-dual-core-arduino-ide/
+[Read more about dual core functionality on ESP32's here](https://randomnerdtutorials.com/esp32-dual-core-arduino-ide/):
 
 ### Important Note regarding CAN-Bus frequency on some ESP32 Microcontrollers
 
 * Some of the newer ESP32's have a known issue where CAN/TWAI frequencies are not actually what the programmer defines. These newer microcontrollers send messages at half the input frequency, meaning that the programmer will have to double the frequency in software (e.g. if we use 500 KB/s transmission speed, you would need to define it as 1000) 
 
-* This was discovered from this forum post: https://www.eevblog.com/forum/microcontrollers/psa-esp32-can-frequency-assignment-broken-in-chip-revision/
+* This was discovered from [this forum post](https://www.eevblog.com/forum/microcontrollers/psa-esp32-can-frequency-assignment-broken-in-chip-revision/)
 
 ### An additional note
 

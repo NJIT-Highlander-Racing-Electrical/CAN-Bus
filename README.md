@@ -36,7 +36,7 @@ There are two main benefits to using ESP32 Microcontrollers for implementing CAN
 
 A CAN Node is made up of a controller and transceiver. The controller is responsible for processing the data that is being sent and received by a microcontroller on the CAN bus. The transceiver is the interface between the controller and CAN Bus. The transceiver translates the logic level messages from the controller into the CAN differntial signals on the CAN-H and CAN-L pins.
 
-Unlike standard Arduinos, the ESP32 has a built in CAN Controller. This means that to create a CAN Node, we only need the transceiver. The [transceivers we use]([url](https://www.adafruit.com/product/5708)) are from Adafruit and are far more compact than a CAN controller/transceiver combo like the [MCP2515]([url](https://www.amazon.com/HiLetgo-MCP2515-TJA1050-Receiver-Arduino/dp/B01D0WSEWU)) you may have seen online that are controlled via SPI
+Unlike standard Arduinos, the ESP32 has a built in CAN Controller. This means that to create a CAN Node, we only need the transceiver. The [transceivers we use]([[url](https://www.adafruit.com/product/5708)]) are from Adafruit and are far more compact than a CAN controller/transceiver combo like the [MCP2515]([[url](https://www.amazon.com/HiLetgo-MCP2515-TJA1050-Receiver-Arduino/dp/B01D0WSEWU)]) you may have seen online that are controlled via SPI
 
 Read more about the ESP32's built in CAN Controller here: https://docs.espressif.com/projects/esp-idf/en/release-v3.3/api-reference/peripherals/can.html
 

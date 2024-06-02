@@ -67,11 +67,10 @@ ESP32's also generally have dual cores. In a standard, simple microcontroller, t
 
 * We use aviation plug connectors to connect subsystems to our main power/CAN busses.
 * Our wiring system for the connectors themselves is as follows:
-
-* +12V on PIN 1
-* GND on PIN 2
-* CAN-H on PIN 3
-* CAN-L on PIN 4
+  * +12V on PIN 1
+  * GND on PIN 2
+  * CAN-H on PIN 3
+  * CAN-L on PIN 4
 
 ### CAN-Bus Message ID List
 

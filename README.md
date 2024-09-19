@@ -1,6 +1,13 @@
 # CAN-Bus
 A repository dedicated to the education and implementation of CAN-Bus on Baja vehicles
 
+# 2024-2025 Goal - Common CAN-Bus Library
+* Provides all variables and functions to read/write data to CAN-Bus
+* Simplifies each individual subsystem's CAN-Bus implementation
+* Far easier to update CAN-Bus functions system-wide (just download most up-to-date library)  
+* Enables every subsystem to have access to all data variables
+
+
 ## What is CAN-Bus?
 
 The CAN (Controller Area Network) protocol is a asynchronous two-wire communication protocol developed by Bosch in the 1980's. Its main purpose was to reduce the amount of wiring needed in vehicles.

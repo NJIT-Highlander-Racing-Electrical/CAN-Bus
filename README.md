@@ -1,7 +1,7 @@
 # CAN-Bus
 A repository dedicated to the education and implementation of CAN-Bus on Baja vehicles
 
-# 2024-2025 Goal - Common CAN-Bus Library
+## 2024-2025 Goal - Common CAN-Bus Library
 * Provides all variables and functions to read/write data to CAN-Bus
 * Simplifies each individual subsystem's CAN-Bus implementation
 * Far easier to update CAN-Bus functions system-wide (just download most up-to-date library)  

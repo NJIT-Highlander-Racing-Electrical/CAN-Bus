@@ -16,7 +16,6 @@
 
 *     *** CAN Setup/Initialization ***
 *
-*
 *     This CAN driver should declare all of the variables that will be used in
 *     CAN transmissions. That way, there is no confusion as to what data packet
 *     a variable name refers to. In addition, declaring the variables in the CAN
@@ -72,7 +71,6 @@
 *     *** CAN Sending ***
 *
 *     There are a few ways to handle this.
-* 
 *     One way to do this is to categorize each variable based off of which subsystem
 *     should be sending it. For example, the main core on a subsystem could (during
 *     setup) tell the CAN driver, "Hey, I'm the CVT." Then, the driver would know to
@@ -144,8 +142,6 @@ int cvtTemperature;
 // ...
 
 
-
-
 // This setupCAN() function should be called in void setup() of the main program
 void setupCAN(Subsystem name) {
 
@@ -176,9 +172,6 @@ void setupCAN(Subsystem name) {
   // Delay for stability; may not be necessary but only executes once
   delay(500);
 }
-
-
-
 
 
 
@@ -254,7 +247,6 @@ void CAN_Task_Code(void* pvParameters) {
         // ... 
         // ... 
         // ... 
-
 
       }
     }

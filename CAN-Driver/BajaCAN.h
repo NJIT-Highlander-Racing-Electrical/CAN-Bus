@@ -31,7 +31,9 @@
 *     Ideally, all subsystems will use the same pair of GPIO for CAN that do not
 *     have any special functions. However, if setup does differ between subsystems,
 *     we can use a subsystem name passed into setupCAN() to determine how to configure
-*     CAN for that subsystem specifically.
+*     CAN for that subsystem specifically. If more individualized configuration is
+*     needed, we can make setupCAN() have optional arguments for baud rate, GPIO,
+*     send frequency, etc. That way, this driver can stay the same.
 *     
 *     A pinout for the ESP32's we use can be found here:
 *     https://lastminuteengineers.com/wp-content/uploads/iot/ESP32-Pinout.png
@@ -98,8 +100,9 @@
 #define CAN_BAUD_RATE 1000E3
 #define CAN_TX_GPIO 25
 #define CAN_RX_GPIO 26
-#define CAN_SEND_INTERVAL 100  // Number of milliseconds to wait between transmissions
 
+// Number of milliseconds to wait between transmissions
+int canSendInterval = 100;
 // Definition to log the last time that a CAN message was sent
 int lastCanSendTime = 0;
 
@@ -143,15 +146,19 @@ int cvtTemperature;
 
 
 // This setupCAN() function should be called in void setup() of the main program
-void setupCAN(Subsystem name) {
+void setupCAN(Subsystem name, int sendInterval = canSendInterval, int rxGpio = CAN_RX_GPIO, int baudRate = CAN_BAUD_RATE) {
 
   // Assign currentSubsystem based on passed through name
   currentSubsystem = name;
 
-  // Reconfigure pins used for CAN from defaults
-  CAN.setPins(CAN_RX_GPIO, CAN_TX_GPIO);
+  // If user specified a different sendInterval in setupCAN(), assign that
+  // Otherwise, it will just remain as default canSendInterval value
+  canSendInterval = sendInterval
 
-  if (!CAN.begin(CAN_BAUD_RATE) {
+  // Reconfigure pins used for CAN from defaults
+  CAN.setPins(rxGpio, txGpio);
+
+  if (!CAN.begin(baudRate) {
     Serial.println("Starting CAN failed!");
     while (1)
       ;
@@ -212,7 +219,7 @@ void CAN_Task_Code(void* pvParameters) {
     }
 
 
-    if ((millis() - lastCanSendTime) > CAN_SEND_INTERVAL) {
+    if ((millis() - lastCanSendTime) > canSendInterval) {
 
       switch (currentSubsystem) {
 

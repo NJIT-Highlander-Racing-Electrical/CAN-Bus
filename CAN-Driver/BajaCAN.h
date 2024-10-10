@@ -16,7 +16,7 @@
 
 *     *** CAN Setup/Initialization ***
 *
-*     This CAN driver should declare all of the variables that will be used in
+*     This CAN driver declares all of the variables that will be used in
 *     CAN transmissions. That way, there is no confusion as to what data packet
 *     a variable name refers to. In addition, declaring the variables in the CAN
 *     header file allows for each variable to have the same data type. If one
@@ -24,16 +24,16 @@
 *     there is a chance we could run into issues.
 *
 *     Before using CAN, several initialization steps must be taken. Since this must 
-*     happen during the setup() of the main code, there should be a function named
+*     happen during the setup() of the main code, there is a function named
 *     setupCAN() that can be called in the setup() portion to execute all CAN setup.
 *     By default, arduino-CAN uses GPIO_5 for CAN-TX and GPIO-4 for CAN_RX. We will
 *     most likely not use these defaults as GPIO_5 is also used for SPI Chip Select.
 *     Ideally, all subsystems will use the same pair of GPIO for CAN that do not
 *     have any special functions. However, if setup does differ between subsystems,
-*     we can use a subsystem name passed into setupCAN() to determine how to configure
-*     CAN for that subsystem specifically. If more individualized configuration is
-*     needed, we can make setupCAN() have optional arguments for baud rate, GPIO,
-*     send frequency, etc. That way, this driver can stay the same.
+*     setupCAN() has optional arguments for baud rate, GPIO, send frequency, etc.
+*     The only argument that must be passed into setupCAN is a subsystem name
+*     (e.g. DASHBOARD) which is used to determine which CAN messages should be
+*     transmitted from each subsystem.
 *     
 *     A pinout for the ESP32's we use can be found here:
 *     https://lastminuteengineers.com/wp-content/uploads/iot/ESP32-Pinout.png
@@ -58,9 +58,9 @@
 *
 *     This part of the driver is responsible for parsing incoming packets, getting the
 *     packet ID, and then sorting the receiving data into the proper variable. For
-*     simplicity purposes, each subsystem should sort all valid data transmissions it
+*     simplicity purposes, each subsystem sorts all valid data transmissions it
 *     receives, even if that data packet isn't pertient to its function. Hardware
-*     limitations should not be an issue, as CAN will have its own dedicated core for
+*     limitations should not be an issue, as CAN has its own dedicated core for
 *     processing on each subsystem. The ESP32 also has plenty of memory to store all of
 *     the data packets we use in CAN transmission. 
 *
@@ -72,15 +72,13 @@
 *
 *     *** CAN Sending ***
 *
-*     There are a few ways to handle this.
-*     One way to do this is to categorize each variable based off of which subsystem
-*     should be sending it. For example, the main core on a subsystem could (during
-*     setup) tell the CAN driver, "Hey, I'm the CVT." Then, the driver would know to
-*     only send CAN packets that the CVT should be updating with new data. Something like
-*     the dashboard should never be reporting an RPM value to the rest of the vehicle
-*     since it's not obtaining that data. This would make writing the main code easier,
-*     as CAN data can just be sent on a fixed interval without any intervention by the
-*     main code.
+*     This driver categorizes each variable based off of which subsystem should be
+*     sending it. By passing through a subsystem name in setupCAN(), the subsybstem is
+*     essentially telling the CAN driver, "Hey, I'm the CVT." Then, the driver would know
+*     to only send CAN packets that the CVT should be updating with new data. Something
+*     like the dashboard should never be reporting an RPM value to the rest of the vehicle
+*     since it's not obtaining that data. This makes writing the main code easier, as CAN
+*     data can just be sent on a fixed interval without any intervention by the main code.
 *
 *
 *

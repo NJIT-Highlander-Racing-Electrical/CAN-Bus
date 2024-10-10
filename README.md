@@ -7,6 +7,8 @@ A repository dedicated to the education and implementation of CAN-Bus on Baja ve
 * Far easier to update CAN-Bus functions system-wide (just download most up-to-date library)  
 * Enables every subsystem to have access to all data variables
 
+There is only one step for a subsystem to become CAN-enabled. The subsystem will call setupCAN(<SubsystemName>) in the standard Arduino setup() function. After that, CAN will be set up and configured with default parameters unless a subsystem requires a specific configuration. Messages will be sent at regular intervals that can be defined within the CAN driver. Global variables are used for all CAN-related data so that the subsystem can read the most up-to-date values whenever required. For data to be sent, the subsystem will update the value of its data variable and the CAN driver will send this out upon the next transmission. By passing through the subsystem name in setupCAN(), the driver will only send out the data corresponding to that subsystem's sensors.
+
 
 ## What is CAN-Bus?
 

@@ -125,7 +125,8 @@ enum Subsystem {
 Subsystem currentSubsystem;
 
 
-// Definitions for all CAN IDs (in hex form) here
+// Definitions for all CAN IDs (in hex form) here:
+
 // CVT Tachometer CAN IDs
 const int primaryRPM_ID = 0x01;
 const int secondaryRPM_ID = 0x02;
@@ -176,13 +177,55 @@ const int fuelPercentage_ID = 0x4C;
 
 
 
-// Declarations for all variables to be used here
+// Declarations for all variables to be used here:
+
+// CVT Tachometer
 int primaryRPM;
 int secondaryRPM;
 int cvtTemperature;
-// ...
-// ...
-// ...
+
+// Wheel Speed Sensors CAN
+int frontLeftWheelSpeed;
+int frontRightWheelSpeed;
+int rearLeftWheelSpeed;
+int rearRightWheelSpeed;
+
+// Steering and Pedal Sensors CAN
+int gasPedalPercentage;
+int brakePedalPercentage;
+int steeringAngle;
+
+// Suspension Displacement CAN
+int frontLeftDisplacement;
+int frontRightDisplacement;
+int rearLeftDisplacement;
+int rearRightDisplacement;
+
+// DAS (Data Acquisition System) CAN
+int accelerationX;
+int accelerationY;
+int accelerationZ;
+int gyroscopeRoll;
+int gyroscopePitch;
+int gyroscopeYaw;
+int gpsLatitude;
+int gpsLongitude;
+int gpsTimeHour;
+int gpsTimeMinute;
+int gpsTimeSecond;
+int gpsDateMonth;
+int gpsDateDay;
+int gpsDateYear;
+int gpsAltitude;
+int gpsHeading;
+int gpsVelocity;
+int sdDataLoggingActive;
+
+// Power CAN
+int batteryPercentage;
+
+// Fuel Sensor CAN IDs
+int fuelPercentage;
 
 
 // This setupCAN() function should be called in void setup() of the main program

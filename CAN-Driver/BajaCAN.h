@@ -236,7 +236,7 @@ void setupCAN(Subsystem name, int sendInterval = canSendInterval, int rxGpio = C
 
   // If user specified a different sendInterval in setupCAN(), assign that
   // Otherwise, it will just remain as default canSendInterval value
-  canSendInterval = sendInterval
+  canSendInterval = sendInterval;
 
   // Reconfigure pins used for CAN from defaults
   CAN.setPins(rxGpio, txGpio);

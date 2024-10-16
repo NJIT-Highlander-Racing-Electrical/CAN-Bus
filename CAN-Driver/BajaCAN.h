@@ -126,12 +126,54 @@ Subsystem currentSubsystem;
 
 
 // Definitions for all CAN IDs (in hex form) here
+// CVT Tachometer CAN IDs
 const int primaryRPM_ID = 0x01;
 const int secondaryRPM_ID = 0x02;
 const int cvtTemperature_ID = 0x03;
-// ...
-// ...
-// ...
+
+// Wheel Speed Sensors CAN IDs
+const int frontLeftWheelSpeed_ID = 0x0B;
+const int frontRightWheelSpeed_ID = 0x0C;
+const int rearLeftWheelSpeed_ID = 0x0D;
+const int rearRightWheelSpeed_ID = 0x0E;
+
+// Steering and Pedal Sensors CAN IDs
+const int gasPedalPercentage_ID = 0x15;
+const int brakePedalPercentage_ID = 0x16;
+const int steeringAngle_ID = 0x17;
+
+// Suspension Displacement CAN IDs
+const int frontLeftDisplacement_ID = 0x1F;
+const int frontRightDisplacement_ID = 0x20;
+const int rearLeftDisplacement_ID = 0x21;
+const int rearRightDisplacement_ID = 0x22;
+
+// DAS (Data Acquisition System) CAN IDs
+const int accelerationX_ID = 0x29;
+const int accelerationY_ID = 0x2A;
+const int accelerationZ_ID = 0x2B;
+const int gyroscopeRoll_ID = 0x2C;
+const int gyroscopePitch_ID = 0x2D;
+const int gyroscopeYaw_ID = 0x2E;
+const int gpsLatitude_ID = 0x2F;
+const int gpsLongitude_ID = 0x30;
+const int gpsTimeHour_ID = 0x31;
+const int gpsTimeMinute_ID = 0x32;
+const int gpsTimeSecond_ID = 0x33;
+const int gpsDateMonth_ID = 0x34;
+const int gpsDateDay_ID = 0x35;
+const int gpsDateYear_ID = 0x36;
+const int gpsAltitude_ID = 0x37;
+const int gpsHeading_ID = 0x38;
+const int gpsVelocity_ID = 0x39;
+const int sdDataLoggingActive_ID = 0x3A;
+
+// Power CAN IDs
+const int batteryPercentage_ID = 0x47;
+
+// Fuel Sensor CAN IDs
+const int fuelPercentage_ID = 0x4C;
+
 
 
 // Declarations for all variables to be used here

@@ -229,7 +229,7 @@ int fuelPercentage;
 
 
 // This setupCAN() function should be called in void setup() of the main program
-void setupCAN(Subsystem name, int sendInterval = canSendInterval, int rxGpio = CAN_RX_GPIO, int baudRate = CAN_BAUD_RATE) {
+void setupCAN(Subsystem name, int sendInterval = canSendInterval, int rxGpio = CAN_RX_GPIO, int txGpio = CAN_TX_GPIO, int baudRate = CAN_BAUD_RATE) {
 
   // Assign currentSubsystem based on passed through name
   currentSubsystem = name;

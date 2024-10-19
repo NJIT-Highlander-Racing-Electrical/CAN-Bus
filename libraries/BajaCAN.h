@@ -1,6 +1,6 @@
 /*********************************************************************************
 *   
-*   BajaCAN.h
+*   BajaCAN.h  -- Version 1.0.0
 * 
 *   The goal of this BajaCAN header/driver is to enable all subsystems throughout
 *   the vehicle to use the same variables, data types, and functions. That way,

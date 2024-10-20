@@ -1,6 +1,6 @@
 /*********************************************************************************
 *   
-*   BajaCAN.h  -- Version 1.0.0
+*   BajaCAN.h  -- Version 1.0.1
 * 
 *   The goal of this BajaCAN header/driver is to enable all subsystems throughout
 *   the vehicle to use the same variables, data types, and functions. That way,
@@ -92,7 +92,7 @@
 ************************************************************************************/
 
 // Include sandeepmistry's arduino-CAN library
-#include <CAN.h>
+#include "arduino-CAN/src/CAN.h"
 
 // Definitions for all CAN setup parameters
 #define CAN_BAUD_RATE 1000E3
@@ -167,7 +167,7 @@ const int gpsDateYear_ID = 0x36;
 const int gpsAltitude_ID = 0x37;
 const int gpsHeading_ID = 0x38;
 const int gpsVelocity_ID = 0x39;
-const int sdDataLoggingActive_ID = 0x3A;
+const int sdLoggingActive_ID = 0x3A;
 
 // Power CAN IDs
 const int batteryPercentage_ID = 0x47;
@@ -190,10 +190,9 @@ int frontRightWheelSpeed;
 int rearLeftWheelSpeed;
 int rearRightWheelSpeed;
 
-// Steering and Pedal Sensors CAN
+// Pedal Sensors CAN
 int gasPedalPercentage;
 int brakePedalPercentage;
-int steeringAngle;
 
 // Suspension Displacement CAN
 int frontLeftDisplacement;
@@ -202,14 +201,14 @@ int rearLeftDisplacement;
 int rearRightDisplacement;
 
 // DAS (Data Acquisition System) CAN
-int accelerationX;
-int accelerationY;
-int accelerationZ;
-int gyroscopeRoll;
-int gyroscopePitch;
-int gyroscopeYaw;
-int gpsLatitude;
-int gpsLongitude;
+float accelerationX;
+float accelerationY;
+float accelerationZ;
+float gyroscopeRoll;
+float gyroscopePitch;
+float gyroscopeYaw;
+float gpsLatitude;
+float gpsLongitude;
 int gpsTimeHour;
 int gpsTimeMinute;
 int gpsTimeSecond;
@@ -218,14 +217,17 @@ int gpsDateDay;
 int gpsDateYear;
 int gpsAltitude;
 int gpsHeading;
-int gpsVelocity;
-int sdDataLoggingActive;
+float gpsVelocity;
+bool sdLoggingActive;
 
 // Power CAN
 int batteryPercentage;
 
 // Fuel Sensor CAN IDs
 int fuelPercentage;
+
+// Declaraction for CAN_Task_Code second core program
+void CAN_Task_Code(void* pvParameters); 
 
 
 // This setupCAN() function should be called in void setup() of the main program
@@ -241,7 +243,7 @@ void setupCAN(Subsystem name, int sendInterval = canSendInterval, int rxGpio = C
   // Reconfigure pins used for CAN from defaults
   CAN.setPins(rxGpio, txGpio);
 
-  if (!CAN.begin(baudRate) {
+  if (!CAN.begin(baudRate)) {
     Serial.println("Starting CAN failed!");
     while (1)
       ;
@@ -261,6 +263,7 @@ void setupCAN(Subsystem name, int sendInterval = canSendInterval, int rxGpio = C
 
   // Delay for stability; may not be necessary but only executes once
   delay(500);
+
 }
 
 
@@ -276,10 +279,11 @@ void CAN_Task_Code(void* pvParameters) {
     // Check if a packet has been received
     // Returns the packet size in bytes or 0 if no packet received
     int packetSize = CAN.parsePacket();
+    int packetId;
 
     if ((packetSize || CAN.packetId() != -1) && (packetSize != 0)) {
       // received a packet
-      int packetId = CAN.packetId();  // Get the packet ID
+      packetId = CAN.packetId();  // Get the packet ID
     }
 
     // Sort data packet to correct variable based on ID
@@ -308,36 +312,37 @@ void CAN_Task_Code(void* pvParameters) {
 
         case CVT:
 
-          CAN.beginPacket(primaryRPM_ID);   // sets the ID for the transmission
-          CAN.print(primaryRPM);            // prints data to CAN Bus just like Serial.print
-          CAN.endPacket();                  // ends the sequence of sending a packet
+          CAN.beginPacket(primaryRPM_ID);  // sets the ID for the transmission
+          CAN.print(primaryRPM);           // prints data to CAN Bus just like Serial.print
+          CAN.endPacket();                 // ends the sequence of sending a packet
 
-          CAN.beginPacket(secondaryRPM_ID);   
-          CAN.print(secondaryRPM);            
-          CAN.endPacket();       
+          CAN.beginPacket(secondaryRPM_ID);
+          CAN.print(secondaryRPM);
+          CAN.endPacket();
 
-          CAN.beginPacket(cvtTemperature_ID);   
-          CAN.print(cvtTemperature);            
-          CAN.endPacket();                
+          CAN.beginPacket(cvtTemperature_ID);
+          CAN.print(cvtTemperature);
+          CAN.endPacket();
 
           break;
 
         case DASHBOARD:
-        // ... 
-        // ... 
-        // ... 
-        break;
+          // ...
+          // ...
+          // ...
+          break;
 
         case DAS:
-        // ... 
-        // ... 
-        // ... 
-        break;
+          // ...
+          // ...
+          // ...
+          break;
 
-        // ... 
-        // ... 
-        // ... 
-
+          // ...
+          // ...
+          // ...
       }
     }
   }
+
+}

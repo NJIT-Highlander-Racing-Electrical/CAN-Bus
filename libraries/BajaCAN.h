@@ -310,37 +310,165 @@ void CAN_Task_Code(void* pvParameters) {
 
       switch (currentSubsystem) {
 
+        //A template might make this more efficent (or at least nicer to look at).. I'll look into implementations later
         case CVT:
+        CAN.beginPacket(primaryRPM_ID);  
+        CAN.print(primaryRPM);
+        CAN.endPacket();
 
-          CAN.beginPacket(primaryRPM_ID);  // sets the ID for the transmission
-          CAN.print(primaryRPM);           // prints data to CAN Bus just like Serial.print
-          CAN.endPacket();                 // ends the sequence of sending a packet
+        CAN.beginPacket(secondaryRPM_ID);
+        CAN.print(secondaryRPM);
+        CAN.endPacket();
 
-          CAN.beginPacket(secondaryRPM_ID);
-          CAN.print(secondaryRPM);
-          CAN.endPacket();
+        CAN.beginPacket(cvtTemperature_ID);
+        CAN.print(cvtTemperature);
+        CAN.endPacket();
+        break;
 
-          CAN.beginPacket(cvtTemperature_ID);
-          CAN.print(cvtTemperature);
-          CAN.endPacket();
+    case WHEEL_SPEED:
+        CAN.beginPacket(frontLeftWheelSpeed_ID);
+        CAN.print(frontLeftWheelSpeed);
+        CAN.endPacket();
 
-          break;
+        CAN.beginPacket(frontRightWheelSpeed_ID);
+        CAN.print(frontRightWheelSpeed);
+        CAN.endPacket();
 
-        case DASHBOARD:
-          // ...
-          // ...
-          // ...
-          break;
+        CAN.beginPacket(rearLeftWheelSpeed_ID);
+        CAN.print(rearLeftWheelSpeed);
+        CAN.endPacket();
 
-        case DAS:
-          // ...
-          // ...
-          // ...
-          break;
+        CAN.beginPacket(rearRightWheelSpeed_ID);
+        CAN.print(rearRightWheelSpeed);
+        CAN.endPacket();
+        break;
 
-          // ...
-          // ...
-          // ...
+    case PEDALS:
+        CAN.beginPacket(gasPedalPercentage_ID);
+        CAN.print(gasPedalPercentage);
+        CAN.endPacket();
+
+        CAN.beginPacket(brakePedalPercentage_ID);
+        CAN.print(brakePedalPercentage);
+        CAN.endPacket();
+
+        CAN.beginPacket(steeringAngle_ID);
+        CAN.print(steeringAngle);
+        CAN.endPacket();
+        break;
+
+    case SUSPENSION:
+        CAN.beginPacket(frontLeftDisplacement_ID);
+        CAN.print(frontLeftDisplacement);
+        CAN.endPacket();
+
+        CAN.beginPacket(frontRightDisplacement_ID);
+        CAN.print(frontRightDisplacement);
+        CAN.endPacket();
+
+        CAN.beginPacket(rearLeftDisplacement_ID);
+        CAN.print(rearLeftDisplacement);
+        CAN.endPacket();
+
+        CAN.beginPacket(rearRightDisplacement_ID);
+        CAN.print(rearRightDisplacement);
+        CAN.endPacket();
+        break;
+
+    case DAS:
+        CAN.beginPacket(accelerationX_ID);
+        CAN.print(accelerationX);
+        CAN.endPacket();
+
+        CAN.beginPacket(accelerationY_ID);
+        CAN.print(accelerationY);
+        CAN.endPacket();
+
+        CAN.beginPacket(accelerationZ_ID);
+        CAN.print(accelerationZ);
+        CAN.endPacket();
+
+        CAN.beginPacket(gyroscopeRoll_ID);
+        CAN.print(gyroscopeRoll);
+        CAN.endPacket();
+
+        CAN.beginPacket(gyroscopePitch_ID);
+        CAN.print(gyroscopePitch);
+        CAN.endPacket();
+
+        CAN.beginPacket(gyroscopeYaw_ID);
+        CAN.print(gyroscopeYaw);
+        CAN.endPacket();
+
+        CAN.beginPacket(gpsLatitude_ID);
+        CAN.print(gpsLatitude);
+        CAN.endPacket();
+
+        CAN.beginPacket(gpsLongitude_ID);
+        CAN.print(gpsLongitude);
+        CAN.endPacket();
+
+        CAN.beginPacket(gpsTimeHour_ID);
+        CAN.print(gpsTimeHour);
+        CAN.endPacket();
+
+        CAN.beginPacket(gpsTimeMinute_ID);
+        CAN.print(gpsTimeMinute);
+        CAN.endPacket();
+
+        CAN.beginPacket(gpsTimeSecond_ID);
+        CAN.print(gpsTimeSecond);
+        CAN.endPacket();
+
+        CAN.beginPacket(gpsDateMonth_ID);
+        CAN.print(gpsDateMonth);
+        CAN.endPacket();
+
+        CAN.beginPacket(gpsDateDay_ID);
+        CAN.print(gpsDateDay);
+        CAN.endPacket();
+
+        CAN.beginPacket(gpsDateYear_ID);
+        CAN.print(gpsDateYear);
+        CAN.endPacket();
+
+        CAN.beginPacket(gpsAltitude_ID);
+        CAN.print(gpsAltitude);
+        CAN.endPacket();
+
+        CAN.beginPacket(gpsHeading_ID);
+        CAN.print(gpsHeading);
+        CAN.endPacket();
+
+        CAN.beginPacket(gpsVelocity_ID);
+        CAN.print(gpsVelocity);
+        CAN.endPacket();
+
+        CAN.beginPacket(sdDataLoggingActive_ID);
+        CAN.print(sdDataLoggingActive);
+        CAN.endPacket();
+        break;
+
+    case POWER:
+        CAN.beginPacket(batteryPercentage_ID);
+        CAN.print(batteryPercentage);
+        CAN.endPacket();
+        break;
+
+    case FUEL:
+        CAN.beginPacket(fuelPercentage_ID);
+        CAN.print(fuelPercentage);
+        CAN.endPacket();
+        break;
+
+    case DASHBOARD:
+        // Code for Dashboard messages, if any, would go here
+        break;
+
+    case BASE_STATION:
+        // Code for Base Station messages, if any, would go here
+        break;
+}
       }
     }
   }

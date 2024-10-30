@@ -4,8 +4,8 @@
 |	--------	|	--------	|	--------	|	--------	|
 |	1	|	0x01	|	CVT Tachometer	|	Primary RPM	|
 |	2	|	0x02	|	CVT Tachometer	|	Secondary RPM	|
-|	3	|	0x03	|	CVT Tachometer	|	CVT Ambient Temperature	|
-|	4	|	0x04	|	CVT Tachometer	|		|
+|	3	|	0x03	|	CVT Tachometer	|	CVT Primary Ambient Temperature	|
+|	4	|	0x04	|	CVT Tachometer	|	CVT Secondary Ambient Temperature		|
 |	5	|	0x05	|	CVT Tachometer	|		|
 |	6	|	0x06	|	CVT Tachometer	|		|
 |	7	|	0x07	|	CVT Tachometer	|		|

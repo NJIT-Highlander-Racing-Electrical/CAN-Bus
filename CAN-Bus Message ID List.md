@@ -58,7 +58,7 @@
 |	54	|	0x36	|	DAS	|	GPS Date -- Year	|
 |	55	|	0x37	|	DAS	|	GPS Altitude	|
 |	56	|	0x38	|	DAS	|	GPS Heading 	|
-|	57	|	0x39	|	DAS	 	GPS Velocity	 
+|	57	|	0x39	|	DAS	| 	GPS Velocity	 
 |	58	|	0x3A	|	DAS	|	(Boolean) SD Data Logging Active	|
 |	59	|	0x3B	|	DAS	|		|
 |	60	|	0x3C	|	DAS	|		|

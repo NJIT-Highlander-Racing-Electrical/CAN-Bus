@@ -16,10 +16,10 @@
 |	12	|	0x0C	|	Wheel Speed Sensors	|	Front Right Wheel Speed	|
 |	13	|	0x0D	|	Wheel Speed Sensors	|	Rear Left Wheel Speed	|
 |	14	|	0x0E	|	Wheel Speed Sensors	|	Rear Right Wheel Speed	|
-|	15	|	0x0F	|	Wheel Speed Sensors	|		|
-|	16	|	0x10	|	Wheel Speed Sensors	|		|
-|	17	|	0x11	|	Wheel Speed Sensors	|		|
-|	18	|	0x12	|	Wheel Speed Sensors	|		|
+|	15	|	0x0F	|	Wheel Speed Sensors	| Front Left Wheel State		|
+|	16	|	0x10	|	Wheel Speed Sensors	| Front Right Wheel State		|
+|	17	|	0x11	|	Wheel Speed Sensors	| Rear Left Wheel State		|
+|	18	|	0x12	|	Wheel Speed Sensors	| Rear Right Wheel State		|
 |	19	|	0x13	|	Wheel Speed Sensors	|		|
 |	20	|	0x14	|	Wheel Speed Sensors	|		|
 |	21	|	0x15	|	Steering/Pedal Sensors	|	Gas Pedal Percentage	|

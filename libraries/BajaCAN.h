@@ -130,8 +130,8 @@ Subsystem currentSubsystem;
 // CVT Tachometer CAN IDs
 const int primaryRPM_ID = 0x01;
 const int secondaryRPM_ID = 0x02;
-const int cvtPrimaryTemperature_ID = 0x03;
-const int cvtSecondaryTemperature_ID = 0x04;
+const int primaryTemperature_ID = 0x03;
+const int secondaryTemperature_ID = 0x04;
 
 // Wheel Speed Sensors CAN IDs
 const int frontLeftWheelSpeed_ID = 0x0B;
@@ -183,8 +183,8 @@ const int fuelPercentage_ID = 0x4C;
 // CVT Tachometer
 int primaryRPM;
 int secondaryRPM;
-int cvtPrimaryTemperature;
-int cvtSecondaryTemperature;
+int primaryTemperature;
+int secondaryTemperature;
 
 // Wheel Speed Sensors CAN
 int frontLeftWheelSpeed;

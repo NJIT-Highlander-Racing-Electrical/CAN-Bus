@@ -32,10 +32,10 @@
 |	28	|	0x1C	|	Steering/Pedal Sensors	|		|
 |	29	|	0x1D	|	Steering/Pedal Sensors	|		|
 |	30	|	0x1E	|	Steering/Pedal Sensors	|		|
-|	31	|	0x1F	|	Suspension Displacement	|	Front Left Displacement Percentage	|
-|	32	|	0x20	|	Suspension Displacement	|	Front Right Displacement Percentage	|
-|	33	|	0x21	|	Suspension Displacement	|	Rear Left Displacement Percentage	|
-|	34	|	0x22	|	Suspension Displacement	|	Rear Right Displacement Percentage	|
+|	31	|	0x1F	|	Suspension Displacement	|	Front Left Displacement (inches)	|
+|	32	|	0x20	|	Suspension Displacement	|	Front Right Displacement (inches)	|
+|	33	|	0x21	|	Suspension Displacement	|	Rear Left Displacement (inches)		|
+|	34	|	0x22	|	Suspension Displacement	|	Rear Right Displacement (inches)	|
 |	35	|	0x23	|	Suspension Displacement	|		|
 |	36	|	0x24	|	Suspension Displacement	|		|
 |	37	|	0x25	|	Suspension Displacement	|		|

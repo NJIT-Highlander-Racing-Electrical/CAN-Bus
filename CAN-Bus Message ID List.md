@@ -1,7 +1,7 @@
 # Message ID's for each subsystem								
 								
 |	CAN ID (dec)	|	CAN ID (hex)	|	Subsystem	|	Message	| Data Type |
-|	--------	|	--------	|	--------	|	--------	|--------	|
+|	:-:	|	:-:	|	:-:	|	:-:	| :-:	|
 |	1	|	0x01	|	CVT Tachometer	|	Primary RPM	| INT |
 |	2	|	0x02	|	CVT Tachometer	|	Secondary RPM	| INT |
 |	3	|	0x03	|	CVT Tachometer	|	CVT Primary Ambient Temperature	| INT |

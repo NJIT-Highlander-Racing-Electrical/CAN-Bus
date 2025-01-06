@@ -91,12 +91,12 @@
 |	87	|	0x57	|		|		|
 |	88	|	0x58	|		|		|
 |	89	|	0x59	|		|		|
-|	90	|	0x5A	|		|		|
-|	91	|	0x5B	|		|		|
-|	92	|	0x5C	|		|		|
-|	93	|	0x5D	|		|		|
-|	94	|	0x5E	|		|		|
-|	95	|	0x5F	|		|		|
+|	90	|	0x5A	| Status Bit - CVT Tachometer		|		|
+|	91	|	0x5B	|	Status Bit - Base Station	|		|
+|	92	|	0x5C	|	Status Bit - Dashboard	|		|
+|	93	|	0x5D	|	Status Bit - DAS	|		|
+|	94	|	0x5E	|	Status Bit - Wheel Speed	|		|
+|	95	|	0x5F	|	Status Bit - Pedals	|		|
 |	96	|	0x60	|		|		|
 |	97	|	0x61	|		|		|
 |	98	|	0x62	|		|		|

@@ -1,6 +1,6 @@
 /*********************************************************************************
 *   
-*   BajaCAN.h  -- Version 1.2.1 
+*   BajaCAN.h  -- Version 1.2.4 
 * 
 *   The goal of this BajaCAN header/driver is to enable all subsystems throughout
 *   the vehicle to use the same variables, data types, and functions. That way,
@@ -697,8 +697,8 @@ void CAN_Task_Code(void* pvParameters) {
           CAN.print(gpsVelocity);
           CAN.endPacket();
 
-          CAN.beginPacket(sdDataLoggingActive_ID);
-          CAN.print(sdDataLoggingActive);
+          CAN.beginPacket(sdLoggingActive_ID);
+          CAN.print(sdLoggingActive);
           CAN.endPacket();
 
           CAN.beginPacket(batteryPercentage_ID);

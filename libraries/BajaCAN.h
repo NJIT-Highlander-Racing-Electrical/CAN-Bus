@@ -86,9 +86,11 @@
 *      Each subsystem has one integer dedicated to status bits. If all is good, the subsystem
 *      transmits a 1, but any issues result in a 0 being transmitted. This allows the data systems
 *      (Base Station and DAS) to get reports of subsystem health. These data systems can also send
-*      a packet with the RTR (Remote Transmissoin Request) bit set, essentially requesting that the
+*      a packet with the RTR (Remote Transmission Request) bit set, essentially requesting that the
 *      subsystem reports its health. This is useful in the situation where a subsystem loses
-*      communication after it has been established. 
+*      communication after it has been established. Ideally, this can also be expanded to use all
+*      16 bits for different status flags. For example, the wheel speed subsystem could use 8 flags
+*      for each of the 8 sensors onboard.
 *
 *
 *

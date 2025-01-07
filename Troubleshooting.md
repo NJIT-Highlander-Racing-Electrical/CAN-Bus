@@ -13,11 +13,11 @@ This follows similarly to the issue above with serial prints. The long serial pr
 
 ## Received Message data bouncing between value and zero 
 
-Not sure on a fix for this yet
+This stemmed from the switch...case statement not being included in the "if" statement that runs when a packet is received. Since the packet was never being parsed in the if statement, it would run forever even if there were no packets
 
 ## Subsystem that receives RTR transmits its response many times
 
-Not sure on a fix for this yet
+This was due to the issue listed above. the switch..case was not in the if statement, so the RTR was never processed properly, and it kept sending. Another part of this issue is that it would still send four times after this. This was due to not checking the packetId, only checking if the packet was an Rtr. Thus, it was picking up all four different RTRs that were sent, even if they weren't CVT RTRs
 
 ## Message data on logic analyzer does not match what was sent
 

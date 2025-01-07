@@ -1,6 +1,6 @@
 /*********************************************************************************
 *   
-*   BajaCAN.h  -- Version 1.2.6 
+*   BajaCAN.h  -- Version 1.2.7 
 * 
 *   The goal of this BajaCAN header/driver is to enable all subsystems throughout
 *   the vehicle to use the same variables, data types, and functions. That way,
@@ -619,7 +619,6 @@ void CAN_Task_Code(void* pvParameters) {
           break;
 
         case PEDALS:
-        Serial.println("SENDING PEDAL CAN DATA");
           CAN.beginPacket(gasPedalPercentage_ID);
           CAN.print(gasPedalPercentage);
           CAN.endPacket();

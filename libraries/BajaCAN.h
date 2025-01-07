@@ -218,6 +218,7 @@ volatile int frontRightWheelState;
 volatile int rearLeftWheelState;
 volatile int rearRightWheelState;
 
+
 // Pedal Sensors CAN
 volatile int gasPedalPercentage;
 volatile int brakePedalPercentage;
@@ -779,6 +780,9 @@ void CAN_Task_Code(void* pvParameters) {
           CAN.endPacket();
           break;
       }
+
+      
+  delay(canSendInterval/2); // Delay for half of our send interval. This should allow Watchdog to reset during IDLE without interfering with the functionality of the program. For the default interval (100ms), we provide a 50ms delay.
     }
   }
 }

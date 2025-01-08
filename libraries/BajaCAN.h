@@ -1,6 +1,6 @@
 /*********************************************************************************
 *   
-*   BajaCAN.h  -- Version 1.2.11 
+*   BajaCAN.h  -- Version 1.2.12 
 * 
 *   The goal of this BajaCAN header/driver is to enable all subsystems throughout
 *   the vehicle to use the same variables, data types, and functions. That way,
@@ -786,7 +786,6 @@ void CAN_Task_Code(void* pvParameters) {
           CAN.endPacket();
           break;
       }
-
-}
+    }
   }
 }

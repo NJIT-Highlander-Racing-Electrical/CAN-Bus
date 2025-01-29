@@ -429,7 +429,7 @@ void CAN_Task_Code(void* pvParameters) {
 
         // DAS Gyro Case
         case gyroscopeRoll_ID:
-          accelerationX = CAN.parseFloat();
+          gyroscopeRoll = CAN.parseFloat();
           break;
 
         // DAS Gyro Case

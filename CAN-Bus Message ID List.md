@@ -59,7 +59,7 @@
 |	55	|	0x37	|	DAS	|	GPS Altitude	|INT |
 |	56	|	0x38	|	DAS	|	GPS Heading 	|INT |
 |	57	|	0x39	|	DAS	| 	GPS Velocity	 | FLOAT |
-|	58	|	0x3A	|	DAS	| 	| |
+|	58	|	0x3A	|	DAS	| 	|Battery Percentage  | INT
 |	59	|	0x3B	|	DAS	|		|
 |	60	|	0x3C	|	DAS	|		|
 |	61	|	0x3D	|	DAS	|		|
@@ -72,7 +72,7 @@
 |	68	|	0x44	|	Dashboard	|		|
 |	69	|	0x45	|	Dashboard	|		|
 |	70	|	0x46	|	Dashboard	|		|
-|	71	|	0x47	|	Power	|	Battery Percentage	| INT |
+|	71	|	0x47	|	Power	|	 	|  |
 |	72	|	0x48	|	Power	|		|
 |	73	|	0x49	|	Power	|		|
 |	74	|	0x4A	|	Power	|		|

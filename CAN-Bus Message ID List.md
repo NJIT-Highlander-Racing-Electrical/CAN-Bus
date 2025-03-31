@@ -59,7 +59,7 @@
 |	55	|	0x37	|	DAS	|	GPS Altitude	|INT |
 |	56	|	0x38	|	DAS	|	GPS Heading 	|INT |
 |	57	|	0x39	|	DAS	| 	GPS Velocity	 | FLOAT |
-|	58	|	0x3A	|	DAS	| SD Data Logging Active	| INT (functions as bool)|
+|	58	|	0x3A	|	DAS	| 	| |
 |	59	|	0x3B	|	DAS	|		|
 |	60	|	0x3C	|	DAS	|		|
 |	61	|	0x3D	|	DAS	|		|
@@ -67,8 +67,8 @@
 |	63	|	0x3F	|	DAS	|		|
 |	64	|	0x40	|	DAS	|		|
 |	65	|	0x41	|	DAS	|		|
-|	66	|	0x42	|	Dashboard	|		|
-|	67	|	0x43	|	Dashboard	|		|
+|	66	|	0x42	|	Dashboard	|	SD Data Logging Active	| INT (functions as bool)
+|	67	|	0x43	|	Dashboard	| 	Data Screenshot Flag	| INT (functions as bool)
 |	68	|	0x44	|	Dashboard	|		|
 |	69	|	0x45	|	Dashboard	|		|
 |	70	|	0x46	|	Dashboard	|		|

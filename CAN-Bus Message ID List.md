@@ -59,7 +59,7 @@
 |	55	|	0x37	|	DAS	|	GPS Altitude	|INT |
 |	56	|	0x38	|	DAS	|	GPS Heading 	|INT |
 |	57	|	0x39	|	DAS	| 	GPS Velocity	 | FLOAT |
-|	58	|	0x3A	|	DAS	| 	|Battery Percentage  | INT
+|	58	|	0x3A	|	DAS	| Battery Percentage	| INT  | 
 |	59	|	0x3B	|	DAS	|		|
 |	60	|	0x3C	|	DAS	|		|
 |	61	|	0x3D	|	DAS	|		|

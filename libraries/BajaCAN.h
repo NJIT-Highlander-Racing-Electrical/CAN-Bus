@@ -498,7 +498,7 @@ void CAN_Task_Code(void* pvParameters) {
 
         // DAS GPS Velocity Case
         case gpsVelocity_ID:
-          gpsVelocity = CAN.parseFloat();
+          gpsVelocity = CAN.parseInt();
           break;
 
         // DAS Battery Percentage Case

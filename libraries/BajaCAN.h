@@ -1,6 +1,6 @@
 /*********************************************************************************
 *   
-*   BajaCAN.h  -- Version 1.3.0
+*   BajaCAN.h  -- Version 1.3.1
 * 
 *   The goal of this BajaCAN header/driver is to enable all subsystems throughout
 *   the vehicle to use the same variables, data types, and functions. That way,
@@ -108,7 +108,7 @@
 #include "arduino-CAN/src/CAN.h"
 
 // Definitions for all CAN setup parameters
-#define CAN_BAUD_RATE 1000E3
+#define CAN_BAUD_RATE 2000E3
 #define CAN_TX_GPIO 25
 #define CAN_RX_GPIO 26
 
@@ -512,7 +512,7 @@ void CAN_Task_Code(void* pvParameters) {
           break;
 
         // Dashboard Data Screenshot Flag Case
-        case dataScreenshotFlag_ID;
+        case dataScreenshotFlag_ID:
           dataScreenshotFlag = CAN.parseInt();
           break;
 

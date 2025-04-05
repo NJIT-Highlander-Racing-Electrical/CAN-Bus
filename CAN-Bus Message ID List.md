@@ -24,7 +24,7 @@
 |	20	|	0x14	|	Wheel Speed Sensors	|		|
 |	21	|	0x15	|	Steering/Pedal Sensors	|	Gas Pedal Percentage	|INT |
 |	22	|	0x16	|	Steering/Pedal Sensors	|	Brake Pedal Percentage	|INT |
-|	23	|	0x17	|	Steering/Pedal Sensors	|		|
+|	23	|	0x17	|	Steering/Pedal Sensors	|	Brake Pressure	|
 |	24	|	0x18	|	Steering/Pedal Sensors	|		|
 |	25	|	0x19	|	Steering/Pedal Sensors	|		|
 |	26	|	0x1A	|	Steering/Pedal Sensors	|		|

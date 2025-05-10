@@ -12,10 +12,10 @@
 |	8	|	0x08	|	CVT Tachometer	|		|
 |	9	|	0x09	|	CVT Tachometer	|		|
 |	10	|	0x0A	|	CVT Tachometer	|		|
-|	11	|	0x0B	|	Wheel Speed Sensors	|	Front Left Wheel RPM	| INT |
-|	12	|	0x0C	|	Wheel Speed Sensors	|	Front Right Wheel RPM	| INT |
-|	13	|	0x0D	|	Wheel Speed Sensors	|	Rear Left Wheel RPM	| INT |
-|	14	|	0x0E	|	Wheel Speed Sensors	|	Rear Right Wheel RPM	| INT |
+|	11	|	0x0B	|	Wheel Speed Sensors	|	Front Left Wheel MPH	| INT |
+|	12	|	0x0C	|	Wheel Speed Sensors	|	Front Right Wheel MPH	| INT |
+|	13	|	0x0D	|	Wheel Speed Sensors	|	Rear Left Wheel MPH	| INT |
+|	14	|	0x0E	|	Wheel Speed Sensors	|	Rear Right Wheel MPH	| INT |
 |	15	|	0x0F	|	Wheel Speed Sensors	| Front Left Wheel State		|INT |
 |	16	|	0x10	|	Wheel Speed Sensors	| Front Right Wheel State		|INT |
 |	17	|	0x11	|	Wheel Speed Sensors	| Rear Left Wheel State		|INT |

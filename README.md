@@ -1,3 +1,5 @@
+# WARNING: UPDATE THE VERSION NUMBER IN `library.properties` ON EVERY COMMIT OR PLATFORMIO MAY DOWNLOAD OLD VERSIONS!
+
 # CAN-Bus
 A repository dedicated to the education and implementation of CAN-Bus on Baja vehicles
 

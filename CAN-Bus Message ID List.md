@@ -6,7 +6,7 @@
 |	2	|	0x02	|	CVT Tachometer	|	Secondary RPM	| INT |
 |	3	|	0x03	|	CVT Tachometer	|	CVT Primary Ambient Temperature	| INT |
 |	4	|	0x04	|	CVT Tachometer	|	CVT Secondary Ambient Temperature		| INT |
-|	5	|	0x05	|	CVT Tachometer	|		|
+|	5	|	0x05	|	CVT Tachometer	|	CVT Belt Temperature	| INT |
 |	6	|	0x06	|	CVT Tachometer	|		|
 |	7	|	0x07	|	CVT Tachometer	|		|
 |	8	|	0x08	|	CVT Tachometer	|		|

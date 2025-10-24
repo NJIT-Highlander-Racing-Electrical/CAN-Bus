@@ -294,7 +294,7 @@ void CAN_Task_Code(void *pvParameters) {
             secondaryTemperature = parseIntFromBytes(data, dataLength);
             break;
           case beltTemperature_ID:
-            beltTemperature; = parseIntFromBytes(data, dataLength);
+            beltTemperature = parseIntFromBytes(data, dataLength);
           break;
           case frontLeftWheelSpeed_ID:
             frontLeftWheelSpeed = parseFloatFromBytes(data, dataLength);

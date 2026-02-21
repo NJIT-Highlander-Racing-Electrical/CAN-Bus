@@ -4,6 +4,15 @@ Pushing updates to the `development` branch is highly recommended so that bugged
 # CAN-Bus
 A repository dedicated to the education and implementation of CAN-Bus on Baja vehicles
 
+## Library Update Checklist
+Do all development and testing of new features and changes in the `development` branch. Ensure all of the bellow are done before merging updates onto the main branch:
+1. Test new features thoroughly.
+2. Update version number in `library.properties` and then in `BajaCAN.h`.
+
+## 2025-2026 Goal - Further Refinement
+* Add additional testing features (ie. ability to disable watchdog timer for testing of module by itself)
+* Update message ids: add new variables and remove old ones
+
 ## 2024-2025 Goal - Common CAN-Bus Library
 * Provides all variables and functions to read/write data to CAN-Bus
 * Simplifies each individual subsystem's CAN-Bus implementation

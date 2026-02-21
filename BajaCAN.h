@@ -1,6 +1,6 @@
 /*********************************************************************************
 *
-*   BajaCAN.h  -- Version 2.2.2 - Native ESP32 CAN Driver
+*   BajaCAN.h  -- Version 2.2.3 - Native ESP32 CAN Driver
 *
 *   The goal of this BajaCAN header/driver is to enable all subsystems throughout
 *   the vehicle to use the same variables, data types, and functions. That way,
@@ -92,6 +92,9 @@
 #define CAN_BAUD_RATE CAN_TIMING_CONFIG_500KBITS()
 #define CAN_TX_GPIO GPIO_NUM_25
 #define CAN_RX_GPIO GPIO_NUM_26
+
+// Testing settings;
+bool bajaCAN_disableWatchdog = false;
 
 // Global variables
 int canSendInterval = 25;
@@ -472,9 +475,10 @@ void CAN_Task_Code(void *pvParameters) {
           break;
       }
 
-
-// Delay to allow watchdog to reset on this core
-vTaskDelay(1);
+      // Delay to allow watchdog to reset on this core
+      if (!bajaCAN_disableWatchdog) {
+        vTaskDelay(1);
+      }
     }
   }
 }

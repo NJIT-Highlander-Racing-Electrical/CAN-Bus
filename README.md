@@ -1,5 +1,5 @@
 # WARNING: UPDATE THE VERSION NUMBER IN `library.properties` ON EVERY COMMIT OR PLATFORMIO MAY DOWNLOAD OLD VERSIONS!
-Pushing updates to the testing branch is highly recommended so that bugged changes to the library do not get inadvertantly downloaded when code for other modules is compiled
+Pushing updates to the `development` branch is highly recommended so that bugged changes to the library do not get inadvertantly downloaded when code for other modules is compiled
 
 # CAN-Bus
 A repository dedicated to the education and implementation of CAN-Bus on Baja vehicles

@@ -103,7 +103,7 @@ enum Subsystem {
   CVT,
   DASHBOARD,
   DAS,
-  WHEEL_SPEED,
+  ADC,
   PEDALS,
   BASE_STATION
 };
@@ -209,7 +209,7 @@ float parseFloatFromBytes(uint8_t* data, int length) {
 void intToBytes(int value, uint8_t* buffer, int& length) {
   length = 4;  // Always 4 bytes
   buffer[0] = (value >> 24) & 0xFF;
-  buffer[1] = (value >> 16) & 0xFF; 
+  buffer[1] = (value >> 16) & 0xFF;
   buffer[2] = (value >> 8) & 0xFF;
   buffer[3] = value & 0xFF;
 }
@@ -234,7 +234,7 @@ bool sendCANInt(uint32_t id, int value) {
   tx_message.ss = 0;
   tx_message.self = 0;
   tx_message.dlc_non_comp = 0;
-  
+
   int length;
   intToBytes(value, tx_message.data, length);
   tx_message.data_length_code = length;
@@ -250,11 +250,11 @@ bool sendCANFloat(uint32_t id, float value) {
   tx_message.ss = 0;
   tx_message.self = 0;
   tx_message.dlc_non_comp = 0;
-  
+
   int length;
   floatToBytes(value, tx_message.data, length);
   tx_message.data_length_code = length;
-  
+
   esp_err_t result = can_transmit(&tx_message, pdMS_TO_TICKS(5));
   if (result != ESP_OK && result != ESP_ERR_TIMEOUT) {
     Serial.print("CAN send failed for ID 0x");
@@ -266,7 +266,7 @@ bool sendCANFloat(uint32_t id, float value) {
 }
 
 // CAN Task function
-void CAN_Task_Code(void *pvParameters) {
+void CAN_Task_Code(void* pvParameters) {
   Serial.print("CAN_Task running on core ");
   Serial.println(xPortGetCoreID());
 
@@ -281,135 +281,135 @@ void CAN_Task_Code(void *pvParameters) {
         int dataLength = message.data_length_code;
 
         switch (packetId) {
-          case primaryRPM_ID:
-            primaryRPM = parseIntFromBytes(data, dataLength);
-            break;
-          case secondaryRPM_ID:
-            secondaryRPM = parseIntFromBytes(data, dataLength);
-            break;
-          case primaryTemperature_ID:
-            primaryTemperature = parseIntFromBytes(data, dataLength);
-            break;
-          case secondaryTemperature_ID:
-            secondaryTemperature = parseIntFromBytes(data, dataLength);
-            break;
-          case beltTemperature_ID:
-            beltTemperature = parseIntFromBytes(data, dataLength);
+        case primaryRPM_ID:
+          primaryRPM = parseIntFromBytes(data, dataLength);
           break;
-          case frontLeftWheelSpeed_ID:
-            frontLeftWheelSpeed = parseFloatFromBytes(data, dataLength);
-            break;
-          case frontRightWheelSpeed_ID:
-            frontRightWheelSpeed = parseFloatFromBytes(data, dataLength);
-            break;
-          case rearLeftWheelSpeed_ID:
-            rearLeftWheelSpeed = parseFloatFromBytes(data, dataLength);
-            break;
-          case rearRightWheelSpeed_ID:
-            rearRightWheelSpeed = parseFloatFromBytes(data, dataLength);
-            break;
-          case frontLeftWheelState_ID:
-            frontLeftWheelState = parseIntFromBytes(data, dataLength);
-            break;
-          case frontRightWheelState_ID:
-            frontRightWheelState = parseIntFromBytes(data, dataLength);
-            break;
-          case rearLeftWheelState_ID:
-            rearLeftWheelState = parseIntFromBytes(data, dataLength);
-            break;
-          case rearRightWheelState_ID:
-            rearRightWheelState = parseIntFromBytes(data, dataLength);
-            break;
-          case gasPedalPercentage_ID:
-            gasPedalPercentage = parseIntFromBytes(data, dataLength);
-            break;
-          case brakePedalPercentage_ID:
-            brakePedalPercentage = parseIntFromBytes(data, dataLength);
-            break;
-          case frontBrakePressure_ID:
-            frontBrakePressure = parseIntFromBytes(data, dataLength);
-            break;
-          case rearBrakePressure_ID:
-            rearBrakePressure = parseIntFromBytes(data, dataLength);
-            break;
-          case frontLeftDisplacement_ID:
-            frontLeftDisplacement = parseFloatFromBytes(data, dataLength);
-            break;
-          case frontRightDisplacement_ID:
-            frontRightDisplacement = parseFloatFromBytes(data, dataLength);
-            break;
-          case rearLeftDisplacement_ID:
-            rearLeftDisplacement = parseFloatFromBytes(data, dataLength);
-            break;
-          case rearRightDisplacement_ID:
-            rearRightDisplacement = parseFloatFromBytes(data, dataLength);
-            break;
-          case accelerationX_ID:
-            accelerationX = parseFloatFromBytes(data, dataLength);
-            break;
-          case accelerationY_ID:
-            accelerationY = parseFloatFromBytes(data, dataLength);
-            break;
-          case accelerationZ_ID:
-            accelerationZ = parseFloatFromBytes(data, dataLength);
-            break;
-          case gyroscopeRoll_ID:
-            gyroscopeRoll = parseFloatFromBytes(data, dataLength);
-            break;
-          case gyroscopePitch_ID:
-            gyroscopePitch = parseFloatFromBytes(data, dataLength);
-            break;
-          case gyroscopeYaw_ID:
-            gyroscopeYaw = parseFloatFromBytes(data, dataLength);
-            break;
-          case gpsLatitude_ID:
-            gpsLatitude = parseFloatFromBytes(data, dataLength);
-            break;
-          case gpsLongitude_ID:
-            gpsLongitude = parseFloatFromBytes(data, dataLength);
-            break;
-          case gpsTimeHour_ID:
-            gpsTimeHour = parseIntFromBytes(data, dataLength);
-            break;
-          case gpsTimeMinute_ID:
-            gpsTimeMinute = parseIntFromBytes(data, dataLength);
-            break;
-          case gpsTimeSecond_ID:
-            gpsTimeSecond = parseIntFromBytes(data, dataLength);
-            break;
-          case gpsDateMonth_ID:
-            gpsDateMonth = parseIntFromBytes(data, dataLength);
-            break;
-          case gpsDateDay_ID:
-            gpsDateDay = parseIntFromBytes(data, dataLength);
-            break;
-          case gpsDateYear_ID:
-            gpsDateYear = parseIntFromBytes(data, dataLength);
-            break;
-          case gpsAltitude_ID:
-            gpsAltitude = parseIntFromBytes(data, dataLength);
-            break;
-          case gpsHeading_ID:
-            gpsHeading = parseIntFromBytes(data, dataLength);
-            break;
-          case gpsVelocity_ID:
-            gpsVelocity = parseIntFromBytes(data, dataLength);
-            break;
-          case batteryPercentage_ID:
-            batteryPercentage = parseIntFromBytes(data, dataLength);
-            break;
-          case sdLoggingActive_ID:
-            sdLoggingActive = parseIntFromBytes(data, dataLength);
-            break;
-          case dataScreenshotFlag_ID:
-            dataScreenshotFlag = parseIntFromBytes(data, dataLength);
-            break;
-          default:
-            Serial.print("Unknown CAN ID: 0x");
-            Serial.print(packetId, HEX);
-            Serial.print(" Size: ");
-            Serial.println(dataLength);
-            break;
+        case secondaryRPM_ID:
+          secondaryRPM = parseIntFromBytes(data, dataLength);
+          break;
+        case primaryTemperature_ID:
+          primaryTemperature = parseIntFromBytes(data, dataLength);
+          break;
+        case secondaryTemperature_ID:
+          secondaryTemperature = parseIntFromBytes(data, dataLength);
+          break;
+        case beltTemperature_ID:
+          beltTemperature = parseIntFromBytes(data, dataLength);
+          break;
+        case frontLeftWheelSpeed_ID:
+          frontLeftWheelSpeed = parseFloatFromBytes(data, dataLength);
+          break;
+        case frontRightWheelSpeed_ID:
+          frontRightWheelSpeed = parseFloatFromBytes(data, dataLength);
+          break;
+        case rearLeftWheelSpeed_ID:
+          rearLeftWheelSpeed = parseFloatFromBytes(data, dataLength);
+          break;
+        case rearRightWheelSpeed_ID:
+          rearRightWheelSpeed = parseFloatFromBytes(data, dataLength);
+          break;
+        case frontLeftWheelState_ID:
+          frontLeftWheelState = parseIntFromBytes(data, dataLength);
+          break;
+        case frontRightWheelState_ID:
+          frontRightWheelState = parseIntFromBytes(data, dataLength);
+          break;
+        case rearLeftWheelState_ID:
+          rearLeftWheelState = parseIntFromBytes(data, dataLength);
+          break;
+        case rearRightWheelState_ID:
+          rearRightWheelState = parseIntFromBytes(data, dataLength);
+          break;
+        case gasPedalPercentage_ID:
+          gasPedalPercentage = parseIntFromBytes(data, dataLength);
+          break;
+        case brakePedalPercentage_ID:
+          brakePedalPercentage = parseIntFromBytes(data, dataLength);
+          break;
+        case frontBrakePressure_ID:
+          frontBrakePressure = parseIntFromBytes(data, dataLength);
+          break;
+        case rearBrakePressure_ID:
+          rearBrakePressure = parseIntFromBytes(data, dataLength);
+          break;
+        case frontLeftDisplacement_ID:
+          frontLeftDisplacement = parseFloatFromBytes(data, dataLength);
+          break;
+        case frontRightDisplacement_ID:
+          frontRightDisplacement = parseFloatFromBytes(data, dataLength);
+          break;
+        case rearLeftDisplacement_ID:
+          rearLeftDisplacement = parseFloatFromBytes(data, dataLength);
+          break;
+        case rearRightDisplacement_ID:
+          rearRightDisplacement = parseFloatFromBytes(data, dataLength);
+          break;
+        case accelerationX_ID:
+          accelerationX = parseFloatFromBytes(data, dataLength);
+          break;
+        case accelerationY_ID:
+          accelerationY = parseFloatFromBytes(data, dataLength);
+          break;
+        case accelerationZ_ID:
+          accelerationZ = parseFloatFromBytes(data, dataLength);
+          break;
+        case gyroscopeRoll_ID:
+          gyroscopeRoll = parseFloatFromBytes(data, dataLength);
+          break;
+        case gyroscopePitch_ID:
+          gyroscopePitch = parseFloatFromBytes(data, dataLength);
+          break;
+        case gyroscopeYaw_ID:
+          gyroscopeYaw = parseFloatFromBytes(data, dataLength);
+          break;
+        case gpsLatitude_ID:
+          gpsLatitude = parseFloatFromBytes(data, dataLength);
+          break;
+        case gpsLongitude_ID:
+          gpsLongitude = parseFloatFromBytes(data, dataLength);
+          break;
+        case gpsTimeHour_ID:
+          gpsTimeHour = parseIntFromBytes(data, dataLength);
+          break;
+        case gpsTimeMinute_ID:
+          gpsTimeMinute = parseIntFromBytes(data, dataLength);
+          break;
+        case gpsTimeSecond_ID:
+          gpsTimeSecond = parseIntFromBytes(data, dataLength);
+          break;
+        case gpsDateMonth_ID:
+          gpsDateMonth = parseIntFromBytes(data, dataLength);
+          break;
+        case gpsDateDay_ID:
+          gpsDateDay = parseIntFromBytes(data, dataLength);
+          break;
+        case gpsDateYear_ID:
+          gpsDateYear = parseIntFromBytes(data, dataLength);
+          break;
+        case gpsAltitude_ID:
+          gpsAltitude = parseIntFromBytes(data, dataLength);
+          break;
+        case gpsHeading_ID:
+          gpsHeading = parseIntFromBytes(data, dataLength);
+          break;
+        case gpsVelocity_ID:
+          gpsVelocity = parseIntFromBytes(data, dataLength);
+          break;
+        case batteryPercentage_ID:
+          batteryPercentage = parseIntFromBytes(data, dataLength);
+          break;
+        case sdLoggingActive_ID:
+          sdLoggingActive = parseIntFromBytes(data, dataLength);
+          break;
+        case dataScreenshotFlag_ID:
+          dataScreenshotFlag = parseIntFromBytes(data, dataLength);
+          break;
+        default:
+          Serial.print("Unknown CAN ID: 0x");
+          Serial.print(packetId, HEX);
+          Serial.print(" Size: ");
+          Serial.println(dataLength);
+          break;
         }
       }
     }
@@ -419,62 +419,62 @@ void CAN_Task_Code(void *pvParameters) {
       lastCanSendTime = millis();
 
       switch (currentSubsystem) {
-        case CVT:
-          sendCANInt(primaryRPM_ID, primaryRPM);
-          sendCANInt(secondaryRPM_ID, secondaryRPM);
-          sendCANInt(primaryTemperature_ID, primaryTemperature);
-          sendCANInt(secondaryTemperature_ID, secondaryTemperature);
-          sendCANInt(beltTemperature_ID, beltTemperature);
-          break;
+      case CVT:
+        sendCANInt(primaryRPM_ID, primaryRPM);
+        sendCANInt(secondaryRPM_ID, secondaryRPM);
+        sendCANInt(primaryTemperature_ID, primaryTemperature);
+        sendCANInt(secondaryTemperature_ID, secondaryTemperature);
+        sendCANInt(beltTemperature_ID, beltTemperature);
+        break;
 
-        case WHEEL_SPEED:
-          sendCANFloat(frontLeftWheelSpeed_ID, frontLeftWheelSpeed);
-          sendCANFloat(frontRightWheelSpeed_ID, frontRightWheelSpeed);
-          sendCANFloat(rearLeftWheelSpeed_ID, rearLeftWheelSpeed);
-          sendCANFloat(rearRightWheelSpeed_ID, rearRightWheelSpeed);
-          sendCANFloat(frontLeftDisplacement_ID, frontLeftDisplacement);
-          sendCANFloat(frontRightDisplacement_ID, frontRightDisplacement);
-          sendCANFloat(rearLeftDisplacement_ID, rearLeftDisplacement);
-          sendCANFloat(rearRightDisplacement_ID, rearRightDisplacement);
-          break;
+      case ADC:
+        sendCANFloat(frontLeftWheelSpeed_ID, frontLeftWheelSpeed);
+        sendCANFloat(frontRightWheelSpeed_ID, frontRightWheelSpeed);
+        sendCANFloat(rearLeftWheelSpeed_ID, rearLeftWheelSpeed);
+        sendCANFloat(rearRightWheelSpeed_ID, rearRightWheelSpeed);
+        sendCANFloat(frontLeftDisplacement_ID, frontLeftDisplacement);
+        sendCANFloat(frontRightDisplacement_ID, frontRightDisplacement);
+        sendCANFloat(rearLeftDisplacement_ID, rearLeftDisplacement);
+        sendCANFloat(rearRightDisplacement_ID, rearRightDisplacement);
+        sendCANInt(frontBrakePressure_ID, frontBrakePressure);
+        sendCANInt(rearBrakePressure_ID, rearBrakePressure);
+        break;
 
-        case PEDALS:
-          sendCANInt(gasPedalPercentage_ID, gasPedalPercentage);
-          sendCANInt(brakePedalPercentage_ID, brakePedalPercentage);
-          sendCANInt(frontBrakePressure_ID, frontBrakePressure);
-          sendCANInt(rearBrakePressure_ID, rearBrakePressure);
-          break;
+      case PEDALS:
+        sendCANInt(gasPedalPercentage_ID, gasPedalPercentage);
+        sendCANInt(brakePedalPercentage_ID, brakePedalPercentage);
+        break;
 
-        case DAS:
-          sendCANFloat(accelerationX_ID, accelerationX);
-          sendCANFloat(accelerationY_ID, accelerationY);
-          sendCANFloat(accelerationZ_ID, accelerationZ);
-          sendCANFloat(gyroscopeRoll_ID, gyroscopeRoll);
-          sendCANFloat(gyroscopePitch_ID, gyroscopePitch);
-          sendCANFloat(gyroscopeYaw_ID, gyroscopeYaw);
-          sendCANFloat(gpsLatitude_ID, gpsLatitude);
-          sendCANFloat(gpsLongitude_ID, gpsLongitude);
-          sendCANInt(gpsTimeHour_ID, gpsTimeHour);
-          sendCANInt(gpsTimeMinute_ID, gpsTimeMinute);
-          sendCANInt(gpsTimeSecond_ID, gpsTimeSecond);
-          sendCANInt(gpsDateMonth_ID, gpsDateMonth);
-          sendCANInt(gpsDateDay_ID, gpsDateDay);
-          sendCANInt(gpsDateYear_ID, gpsDateYear);
-          sendCANInt(gpsAltitude_ID, gpsAltitude);
-          sendCANInt(gpsHeading_ID, gpsHeading);
-          sendCANInt(gpsVelocity_ID, gpsVelocity);
-          sendCANInt(batteryPercentage_ID, batteryPercentage);
-          break;
+      case DAS:
+        sendCANFloat(accelerationX_ID, accelerationX);
+        sendCANFloat(accelerationY_ID, accelerationY);
+        sendCANFloat(accelerationZ_ID, accelerationZ);
+        sendCANFloat(gyroscopeRoll_ID, gyroscopeRoll);
+        sendCANFloat(gyroscopePitch_ID, gyroscopePitch);
+        sendCANFloat(gyroscopeYaw_ID, gyroscopeYaw);
+        sendCANFloat(gpsLatitude_ID, gpsLatitude);
+        sendCANFloat(gpsLongitude_ID, gpsLongitude);
+        sendCANInt(gpsTimeHour_ID, gpsTimeHour);
+        sendCANInt(gpsTimeMinute_ID, gpsTimeMinute);
+        sendCANInt(gpsTimeSecond_ID, gpsTimeSecond);
+        sendCANInt(gpsDateMonth_ID, gpsDateMonth);
+        sendCANInt(gpsDateDay_ID, gpsDateDay);
+        sendCANInt(gpsDateYear_ID, gpsDateYear);
+        sendCANInt(gpsAltitude_ID, gpsAltitude);
+        sendCANInt(gpsHeading_ID, gpsHeading);
+        sendCANInt(gpsVelocity_ID, gpsVelocity);
+        sendCANInt(batteryPercentage_ID, batteryPercentage);
+        break;
 
-        case DASHBOARD:
-          sendCANInt(sdLoggingActive_ID, sdLoggingActive);
-          sendCANInt(dataScreenshotFlag_ID, dataScreenshotFlag);
-          break;
+      case DASHBOARD:
+        sendCANInt(sdLoggingActive_ID, sdLoggingActive);
+        sendCANInt(dataScreenshotFlag_ID, dataScreenshotFlag);
+        break;
       }
 
 
-// Delay to allow watchdog to reset on this core
-vTaskDelay(1);
+      // Delay to allow watchdog to reset on this core
+      vTaskDelay(1);
     }
   }
 }
@@ -490,14 +490,16 @@ void setupCAN(Subsystem name, int sendInterval = 25, gpio_num_t rxGpio = CAN_RX_
 
   if (can_driver_install(&g_config, &t_config, &f_config) == ESP_OK) {
     Serial.println("CAN Driver installed");
-  } else {
+  }
+  else {
     Serial.println("Failed to install CAN driver");
     return;
   }
 
   if (can_start() == ESP_OK) {
     Serial.println("CAN Driver started");
-  } else {
+  }
+  else {
     Serial.println("Failed to start CAN driver");
     return;
   }

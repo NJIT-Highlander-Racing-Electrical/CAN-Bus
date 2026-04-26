@@ -1,6 +1,6 @@
 /*********************************************************************************
 *
-*   BajaCAN.h  -- Version 2.2.2 - Native ESP32 CAN Driver
+*   BajaCAN.h  -- Version 2.2.3 - Native ESP32 CAN Driver
 *
 *   The goal of this BajaCAN header/driver is to enable all subsystems throughout
 *   the vehicle to use the same variables, data types, and functions. That way,

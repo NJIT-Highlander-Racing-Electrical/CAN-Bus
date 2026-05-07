@@ -1,6 +1,6 @@
 /*********************************************************************************
 *
-*   BajaCAN.h  -- Version 2.2.3 - Native ESP32 CAN Driver
+*   BajaCAN.h  -- Version 3.0.0 - Native ESP32 TWAI Driver
 *
 *   The goal of this BajaCAN header/driver is to enable all subsystems throughout
 *   the vehicle to use the same variables, data types, and functions. That way,
@@ -86,12 +86,21 @@
 *
 ************************************************************************************/
 
-#include "driver/can.h"
+#include "Arduino.h"
+#include <string.h>
+#include "driver/twai.h"
 
 // CAN Configuration
-#define CAN_BAUD_RATE CAN_TIMING_CONFIG_500KBITS()
+#define CAN_BAUD_RATE TWAI_TIMING_CONFIG_500KBITS()
+
+// Setup for different boards
+#ifdef BOARD_HELTEC_WIFI_LORA_32_V3
+#define CAN_TX_GPIO GPIO_NUM_17
+#define CAN_RX_GPIO GPIO_NUM_18
+#elif BOARD_NODEMCU_32S
 #define CAN_TX_GPIO GPIO_NUM_25
 #define CAN_RX_GPIO GPIO_NUM_26
+#endif
 
 // Global variables
 int canSendInterval = 25;
@@ -99,7 +108,8 @@ int lastCanSendTime = 0;
 TaskHandle_t CAN_Task;
 
 // Subsystem enumeration
-enum Subsystem {
+enum Subsystem
+{
   CVT,
   DASHBOARD,
   DAS,
@@ -196,9 +206,10 @@ volatile int batteryPercentage;
 volatile int sdLoggingActive;
 volatile int dataScreenshotFlag;
 
-
-float parseFloatFromBytes(uint8_t* data, int length) {
-  if (length == 4) {
+float parseFloatFromBytes(uint8_t* data, int length)
+{
+  if (length == 4)
+  {
     float result;
     memcpy(&result, data, sizeof(float));
     return result;
@@ -206,28 +217,33 @@ float parseFloatFromBytes(uint8_t* data, int length) {
   return 0.0;
 }
 
-void intToBytes(int value, uint8_t* buffer, int& length) {
-  length = 4;  // Always 4 bytes
+void intToBytes(int value, uint8_t* buffer, int& length)
+{
+  length = 4; // Always 4 bytes
   buffer[0] = (value >> 24) & 0xFF;
   buffer[1] = (value >> 16) & 0xFF;
   buffer[2] = (value >> 8) & 0xFF;
   buffer[3] = value & 0xFF;
 }
 
-int parseIntFromBytes(uint8_t* data, int length) {
-  if (length != 4) return 0;
+int parseIntFromBytes(uint8_t* data, int length)
+{
+  if (length != 4)
+    return 0;
   return (data[0] << 24) | (data[1] << 16) | (data[2] << 8) | data[3];
 }
 
-void floatToBytes(float value, uint8_t* buffer, int& length) {
+void floatToBytes(float value, uint8_t* buffer, int& length)
+{
   length = sizeof(float);
   memcpy(buffer, &value, sizeof(float));
 }
 
 // CAN wrapper functions
-bool sendCANInt(uint32_t id, int value) {
-  can_message_t tx_message;
-  tx_message.flags = CAN_MSG_FLAG_NONE;
+bool sendCANInt(uint32_t id, int value)
+{
+  twai_message_t tx_message;
+  tx_message.flags = TWAI_MSG_FLAG_NONE;
   tx_message.identifier = id;
   tx_message.extd = 0;
   tx_message.rtr = 0;
@@ -238,12 +254,13 @@ bool sendCANInt(uint32_t id, int value) {
   int length;
   intToBytes(value, tx_message.data, length);
   tx_message.data_length_code = length;
-  return (can_transmit(&tx_message, pdMS_TO_TICKS(10)) == ESP_OK);
+  return (twai_transmit(&tx_message, pdMS_TO_TICKS(10)) == ESP_OK);
 }
 
-bool sendCANFloat(uint32_t id, float value) {
-  can_message_t tx_message;
-  tx_message.flags = CAN_MSG_FLAG_NONE;
+bool sendCANFloat(uint32_t id, float value)
+{
+  twai_message_t tx_message;
+  tx_message.flags = TWAI_MSG_FLAG_NONE;
   tx_message.identifier = id;
   tx_message.extd = 0;
   tx_message.rtr = 0;
@@ -255,8 +272,9 @@ bool sendCANFloat(uint32_t id, float value) {
   floatToBytes(value, tx_message.data, length);
   tx_message.data_length_code = length;
 
-  esp_err_t result = can_transmit(&tx_message, pdMS_TO_TICKS(5));
-  if (result != ESP_OK && result != ESP_ERR_TIMEOUT) {
+  esp_err_t result = twai_transmit(&tx_message, pdMS_TO_TICKS(5));
+  if (result != ESP_OK && result != ESP_ERR_TIMEOUT)
+  {
     Serial.print("CAN send failed for ID 0x");
     Serial.print(id, HEX);
     Serial.print(" Error: ");
@@ -266,21 +284,26 @@ bool sendCANFloat(uint32_t id, float value) {
 }
 
 // CAN Task function
-void CAN_Task_Code(void* pvParameters) {
+void CAN_Task_Code(void* pvParameters)
+{
   Serial.print("CAN_Task running on core ");
   Serial.println(xPortGetCoreID());
 
-  can_message_t message;
+  twai_message_t message;
 
-  for (;;) {
+  for (;;)
+  {
     // Receive messages
-    if (can_receive(&message, pdMS_TO_TICKS(1)) == ESP_OK) {
-      if (!(message.flags & CAN_MSG_FLAG_EXTD)) {
+    if (twai_receive(&message, pdMS_TO_TICKS(1)) == ESP_OK)
+    {
+      if (!(message.flags & TWAI_MSG_FLAG_EXTD))
+      {
         uint32_t packetId = message.identifier;
         uint8_t* data = message.data;
         int dataLength = message.data_length_code;
 
-        switch (packetId) {
+        switch (packetId)
+        {
         case primaryRPM_ID:
           primaryRPM = parseIntFromBytes(data, dataLength);
           break;
@@ -415,10 +438,12 @@ void CAN_Task_Code(void* pvParameters) {
     }
 
     // Send messages at specified interval
-    if ((millis() - lastCanSendTime) > canSendInterval) {
+    if ((millis() - lastCanSendTime) > canSendInterval)
+    {
       lastCanSendTime = millis();
 
-      switch (currentSubsystem) {
+      switch (currentSubsystem)
+      {
       case CVT:
         sendCANInt(primaryRPM_ID, primaryRPM);
         sendCANInt(secondaryRPM_ID, secondaryRPM);
@@ -472,7 +497,6 @@ void CAN_Task_Code(void* pvParameters) {
         break;
       }
 
-
       // Delay to allow watchdog to reset on this core
       vTaskDelay(1);
     }
@@ -480,26 +504,31 @@ void CAN_Task_Code(void* pvParameters) {
 }
 
 // Setup function
-void setupCAN(Subsystem name, int sendInterval = 25, gpio_num_t rxGpio = CAN_RX_GPIO, gpio_num_t txGpio = CAN_TX_GPIO, can_timing_config_t baudRate = CAN_BAUD_RATE) {
+void setupCAN(Subsystem name, int sendInterval = 25, gpio_num_t rxGpio = CAN_RX_GPIO, gpio_num_t txGpio = CAN_TX_GPIO, twai_timing_config_t baudRate = CAN_BAUD_RATE)
+{
   currentSubsystem = name;
   canSendInterval = sendInterval;
 
-  can_general_config_t g_config = CAN_GENERAL_CONFIG_DEFAULT(txGpio, rxGpio, CAN_MODE_NORMAL);
-  can_timing_config_t t_config = baudRate;
-  can_filter_config_t f_config = CAN_FILTER_CONFIG_ACCEPT_ALL();
+  twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(txGpio, rxGpio, TWAI_MODE_NORMAL);
+  twai_timing_config_t t_config = baudRate;
+  twai_filter_config_t f_config = TWAI_FILTER_CONFIG_ACCEPT_ALL();
 
-  if (can_driver_install(&g_config, &t_config, &f_config) == ESP_OK) {
+  if (twai_driver_install(&g_config, &t_config, &f_config) == ESP_OK)
+  {
     Serial.println("CAN Driver installed");
   }
-  else {
+  else
+  {
     Serial.println("Failed to install CAN driver");
     return;
   }
 
-  if (can_start() == ESP_OK) {
+  if (twai_start() == ESP_OK)
+  {
     Serial.println("CAN Driver started");
   }
-  else {
+  else
+  {
     Serial.println("Failed to start CAN driver");
     return;
   }
